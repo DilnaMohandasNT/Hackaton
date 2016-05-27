@@ -22,7 +22,7 @@
         android:textColor="@android:color/white"/>
 
     <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/wikipedia"
+        android:id="@+id/iv_help"
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:civ_border_color="#FFFFFF"

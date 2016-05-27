@@ -1,6 +1,7 @@
 package everytasc.nineleaps.com.hackaton.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -26,7 +28,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Objects;
 
+import everytasc.nineleaps.com.hackaton.DataModel.Option;
 import everytasc.nineleaps.com.hackaton.R;
 import everytasc.nineleaps.com.hackaton.Utility.Constans;
 import everytasc.nineleaps.com.hackaton.Utility.VolleySingelton;
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements VolleySingelton.A
     };
 
     ScrollView scrollView;
+    final String API_URL = "http://10.0.1.55/getQuestion.php";
 
 
 
@@ -72,14 +77,15 @@ public class MainActivity extends AppCompatActivity implements VolleySingelton.A
 
 
         //getOrderInfoFromVolley();
-        makeACall();
+        makeACall(1);
     }
 
 
     private void displayQA(String question, String[] possibleAns){
         addMessageFromServer(question);
         for (int i = 0; i < possibleAns.length; i++) {
-            showAnswerOptions(possibleAns[i]);
+            Option ansObject = new Option(possibleAns[i]);
+            showAnswerOptions(ansObject);
         }
 
         /*for (int i = 0; i < answers.length; i++) {
@@ -87,22 +93,37 @@ public class MainActivity extends AppCompatActivity implements VolleySingelton.A
         }*/
     }
 
-    private void showAnswerOptions(final String answer) {
+    private void showAnswerOptions(final Option answer) {
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View block = layoutInflater.inflate(R.layout.answer_block, null);
+        ImageView helpView = (ImageView) block.findViewById(R.id.iv_help);
 
         block.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addAnswerToView(answer);
+                addAnswerToView(answer.getText());
+                makeACall(answer.getCode());
             }
         });
 
-        TextView answerOptionsText= (TextView)block.findViewById(R.id.optionsFromServer);
-        answerOptionsText.setText(answer);
+        helpView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,AnswerDetailsActivity.class);
+                intent.putExtra("url",answer.getHelpUrl());
+                startActivity(intent);
+            }
+        });
 
-        CircularImageView wiki=(CircularImageView)findViewById(R.id.wikipedia);
+
+        TextView answerOptionsText= (TextView)block.findViewById(R.id.optionsFromServer);
+        answerOptionsText.setText(answer.getText());
+
+        CircularImageView wiki=(CircularImageView)findViewById(R.id.iv_help);
         answerOptions.addView(block);
+    }
+
+    private void answerSubmit(){
 
     }
 
@@ -174,30 +195,18 @@ public class MainActivity extends AppCompatActivity implements VolleySingelton.A
 
     //--------------
 
-    private void makeACall() {
+    private void makeACall(int code) {
 
+        //messageFromServer.removeAllViews();
+        answerOptions.removeAllViews();
         JSONObject jsonProfileObject=new JSONObject();
         try {
-            jsonProfileObject.put("code",1);
+            jsonProfileObject.put("code",code);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        String urlString = "http://10.0.1.55/getQuestion.php";
-        Log.d("urlstring", urlString);
-        VolleySingelton.getInstance().setStringRequestListener4(Request.Method.POST, jsonProfileObject, urlString, this);
+        //String urlString = "http://10.0.1.55/getQuestion.php";
+        Log.d("urlstring", API_URL);
+        VolleySingelton.getInstance().setStringRequestListener4(Request.Method.POST, jsonProfileObject, API_URL, this);
     }
-
-
-    /*new VolleySingelton.APIStringResponseListener() {
-        @Override
-        public void onSuccessStringResponse(String responseString) {
-            Log.d("RESPONSE", responseString);
-            JSONObject responseObj = new JSONObject(responseString);
-        }
-
-        @Override
-        public void onErrorStringResponse(VolleyError volleyError) {
-            System.out.print("VolleyError" + volleyError);
-        }
-    }*/
 }

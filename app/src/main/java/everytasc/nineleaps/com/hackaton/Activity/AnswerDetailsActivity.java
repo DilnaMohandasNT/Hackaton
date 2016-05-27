@@ -24,7 +24,7 @@ public class AnswerDetailsActivity extends AppCompatActivity {
         url=getIntent().getStringExtra("url");
         title=getIntent().getStringExtra("title");
         title="title";
-        url="http://10.0.1.55/navi/pages/2-sports/2-sports.html";
+        //url="http://10.0.1.55/navi/pages/2-sports/2-sports.html";
         webview = (WebView) findViewById(R.id.webview1);
         webview.setWebViewClient(new MyWebViewClient());
         openURL(url);

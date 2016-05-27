@@ -1,11 +1,10 @@
 package everytasc.nineleaps.com.hackaton.Activity;
 
+import android.animation.Animator;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,6 +13,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.mikhaellopez.circularimageview.CircularImageView;
+
 import everytasc.nineleaps.com.hackaton.R;
 
 public class StartActivity extends AppCompatActivity {
@@ -21,6 +22,8 @@ public class StartActivity extends AppCompatActivity {
     Activity activity;
     Button startNow;
     TextView tagLine, introText;
+    CircularImageView propic;
+    TextInputLayout nameLayout, ageLayout, locationLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,10 @@ public class StartActivity extends AppCompatActivity {
             window.setStatusBarColor(activity.getResources().getColor(R.color.black));
         }
 
+        nameLayout = (TextInputLayout)findViewById(R.id.input_layout_name);
+        ageLayout = (TextInputLayout)findViewById(R.id.input_layout_age);
+        locationLayout = (TextInputLayout)findViewById(R.id.input_layout_location);
+        propic = (CircularImageView)findViewById(R.id.profilePicContact);
         tagLine = (TextView)findViewById(R.id.tagLine);
         introText = (TextView)findViewById(R.id.introText);
 
@@ -43,13 +50,87 @@ public class StartActivity extends AppCompatActivity {
         startNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              // setEditTextView();
+                if ("Start Now!".equals(startNow.getText())){
+                    setEditTextView();
+
+                }
+
 
             }
         });
 
 
 
+    }
+
+    private void setEditTextView() {
+        tagLine.animate().alpha(0.0f).setDuration(1000);
+        startNow.animate().alpha(0.0f).setDuration(1000);
+        startNow.setText("Lets go");
+        introText.animate().alpha(0.0f)
+                .setDuration(1000)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        propic.setAlpha(0f);
+                        propic.setVisibility(View.VISIBLE);
+
+
+                        propic.animate()
+                                .alpha(1f)
+                                .setDuration(1000)
+                                .setListener(null);
+
+                        nameLayout.setAlpha(0f);
+                        nameLayout.setVisibility(View.VISIBLE);
+
+
+                        nameLayout.animate()
+                                .alpha(1f)
+                                .setDuration(1000)
+                                .setListener(null);
+
+                        ageLayout.setAlpha(0f);
+                        ageLayout.setVisibility(View.VISIBLE);
+
+
+                        ageLayout.animate()
+                                .alpha(1f)
+                                .setDuration(1000)
+                                .setListener(null);
+
+                        locationLayout.setAlpha(0f);
+                        locationLayout.setVisibility(View.VISIBLE);
+
+
+                        locationLayout.animate()
+                                .alpha(1f)
+                                .setDuration(1000)
+                                .setListener(null);
+
+                        startNow.animate()
+                                .alpha(1f)
+                                .setDuration(1000)
+                                .setListener(null);
+
+
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
     }
 
 }

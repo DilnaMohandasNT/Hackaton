@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="everytasc.nineleaps.com.hackaton.AnswerDetailsActivity"
+    tools:context=".Activity.AnswerDetailsActivity"
     tools:showIn="@layout/activity_answer_details">
     <WebView android:id="@+id/webview1" android:layout_width="fill_parent"
         android:layout_height="fill_parent"

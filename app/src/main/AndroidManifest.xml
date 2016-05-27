@@ -32,7 +32,7 @@
             android:label="@string/title_activity_edit_profile"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".AnswerDetailsActivity"
+            android:name=".Activity.AnswerDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

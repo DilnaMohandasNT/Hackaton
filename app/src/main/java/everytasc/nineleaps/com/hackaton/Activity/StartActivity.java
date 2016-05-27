@@ -2,11 +2,13 @@ package everytasc.nineleaps.com.hackaton.Activity;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -50,9 +52,13 @@ public class StartActivity extends AppCompatActivity {
         startNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ("Start Now!".equals(startNow.getText())){
+                Log.d("onClick: ", String.valueOf(startNow.getText()));
+                if ("Start Now!".equals(startNow.getText().toString())){
                     setEditTextView();
 
+                }else {
+                    Intent i = new Intent(StartActivity.this,MainActivity.class);
+                    startActivity(i);
                 }
 
 
@@ -66,7 +72,7 @@ public class StartActivity extends AppCompatActivity {
     private void setEditTextView() {
         tagLine.animate().alpha(0.0f).setDuration(1000);
         startNow.animate().alpha(0.0f).setDuration(1000);
-        startNow.setText("Lets go");
+
         introText.animate().alpha(0.0f)
                 .setDuration(1000)
                 .setListener(new Animator.AnimatorListener() {
@@ -77,14 +83,8 @@ public class StartActivity extends AppCompatActivity {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        propic.setAlpha(0f);
-                        propic.setVisibility(View.VISIBLE);
+                        startNow.setText("Lets go");
 
-
-                        propic.animate()
-                                .alpha(1f)
-                                .setDuration(1000)
-                                .setListener(null);
 
                         nameLayout.setAlpha(0f);
                         nameLayout.setVisibility(View.VISIBLE);

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="everytasc.nineleaps.com.hackaton.MainActivity"
+    tools:context=".Activity.MainActivity"
     android:background="@drawable/chat_screen_background"
     tools:showIn="@layout/activity_main">
 

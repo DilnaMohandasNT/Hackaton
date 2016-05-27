@@ -218,7 +218,9 @@ public class VolleySingeltonUniv {
 
 //-------------- POST METHODS -------------------------------
 
-    public void postJsonStringRequest(String url,final HashMap<String ,String> param){
+    public void postJsonStringRequest(String url,final HashMap<String ,String> dataParam){
+
+        Log.i("DataParam",dataParam.toString());
 
         StringRequest strReq = new StringRequest(Request.Method.POST,url,
                 new Response.Listener<String>() {
@@ -243,16 +245,16 @@ public class VolleySingeltonUniv {
 
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = param;
+                Map<String, String> params = dataParam;
                 Log.i("TAG",String.valueOf(params));
                 return params;
             }
 
-            @Override
+            /*@Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> headers = getSecureHeader();
                 return headers;
-            }
+            }*/
         };
 
         getRequestQueue().add(strReq);
@@ -263,6 +265,8 @@ public class VolleySingeltonUniv {
 
         JSONObject obj = new JSONObject(param);
         //String url = Constants.PostURL;
+        Log.d("URL",url);
+        Log.i("OBJECT",obj.toString());
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,url, obj,
                 new Response.Listener<JSONObject>() {
@@ -283,13 +287,7 @@ public class VolleySingeltonUniv {
                     volleyPostJSONObjReqListener.onErrorResponse(error);
                 }
             }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> headers = getSecureHeader();
-                return headers;
-            }
-        };
+        });
         getRequestQueue().add(jsonObjReq);
     }
 
@@ -394,27 +392,27 @@ public class VolleySingeltonUniv {
 
     //-------------------------------------
 
-    private void setVolleyGetStringReqListener(VolleyGetStringReqListener volleyGetStringReqListener){
+    public void setVolleyGetStringReqListener(VolleyGetStringReqListener volleyGetStringReqListener){
         this.volleyGetStringReqListener = volleyGetStringReqListener;
     }
 
-    private void setVolleyGetJSONObjReqListener(VolleyGetJSONObjReqListener volleyGetJSONObjReqListener){
+    public void setVolleyGetJSONObjReqListener(VolleyGetJSONObjReqListener volleyGetJSONObjReqListener){
         this.volleyGetJSONObjReqListener = volleyGetJSONObjReqListener;
     }
 
-    private void setVolleyGetJSONArrayReqListener(VolleyGetJSONArrayReqListener volleyGetJSONArrayReqListener){
+    public void setVolleyGetJSONArrayReqListener(VolleyGetJSONArrayReqListener volleyGetJSONArrayReqListener){
         this.volleyGetJSONArrayReqListener = volleyGetJSONArrayReqListener;
     }
 
-    private void setVolleyPostStringReqListener (VolleyPostStringReqListener volleyPostStringReqListener){
+    public void setVolleyPostStringReqListener (VolleyPostStringReqListener volleyPostStringReqListener){
         this.volleyPostStringReqListener = volleyPostStringReqListener;
     }
 
-    private void setVolleyPostJSONObjReqListener (VolleyPostJSONObjReqListener volleyPostJSONObjReqListener){
+    public void setVolleyPostJSONObjReqListener (VolleyPostJSONObjReqListener volleyPostJSONObjReqListener){
         this.volleyPostJSONObjReqListener = volleyPostJSONObjReqListener;
     }
 
-    private void setVolleyPostJSONArrayReqListener (VolleyPostJSONArrayReqListener volleyPostJSONArrayReqListener){
+    public void setVolleyPostJSONArrayReqListener (VolleyPostJSONArrayReqListener volleyPostJSONArrayReqListener){
         this.volleyPostJSONArrayReqListener = volleyPostJSONArrayReqListener;
     }
 

@@ -26,15 +26,17 @@
         </activity>
 
         <activity
-            android:name=".Activity.MainActivity"
-            android:label="@string/title_activity_start"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
             android:name=".Activity.AnswerDetailsActivity"
+            android:label="@string/title_activity_start"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        
+
+        <activity
+            android:name=".Activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+
     </application>
 
 </manifest>
